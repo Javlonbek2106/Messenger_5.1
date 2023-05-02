@@ -1,0 +1,14 @@
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\bin\Debug\net7.0\Service.Abstractions.deps.json
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\bin\Debug\net7.0\Service.Abstractions.runtimeconfig.json
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\bin\Debug\net7.0\Service.Abstractions.dll
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\bin\Debug\net7.0\Service.Abstractions.pdb
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.csproj.AssemblyReference.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.AssemblyInfoInputs.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.AssemblyInfo.cs
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.csproj.CoreCompileInputs.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.dll
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\refint\Service.Abstractions.dll
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.pdb
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\Service.Abstractions.genruntimeconfig.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Serivce.Abstractions\obj\Debug\net7.0\ref\Service.Abstractions.dll
