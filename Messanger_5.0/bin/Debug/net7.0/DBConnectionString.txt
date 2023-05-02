@@ -1,0 +1,1 @@
+﻿Server=::1;Port=5432;Database=messanger_5.0;User Id=postgres;Password=Jam2001!!!
