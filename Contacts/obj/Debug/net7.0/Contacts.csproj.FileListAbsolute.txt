@@ -1,0 +1,14 @@
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\bin\Debug\net7.0\Contacts.deps.json
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\bin\Debug\net7.0\Contacts.runtimeconfig.json
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\bin\Debug\net7.0\Contacts.dll
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\bin\Debug\net7.0\Contacts.pdb
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.csproj.AssemblyReference.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.AssemblyInfoInputs.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.AssemblyInfo.cs
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.csproj.CoreCompileInputs.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.dll
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\refint\Contacts.dll
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.pdb
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\Contacts.genruntimeconfig.cache
+C:\Users\Windows_10\source\repos\Messanger_5.0\Contacts\obj\Debug\net7.0\ref\Contacts.dll
