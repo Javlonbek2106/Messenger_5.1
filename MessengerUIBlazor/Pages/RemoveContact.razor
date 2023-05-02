@@ -1,0 +1,54 @@
+﻿@page "/RemoveContact/{id}"
+@using Domein.Entities;
+@using Domein.Exceptions;
+@using MessengerUIBlazor.Data;
+@layout MainLayout
+
+
+<h3>Choose Contact to Remove</h3>
+
+<ul>
+    @foreach (var account in ContactList)
+    {
+        <li><button @onclick="() => MyContacts(account)">@account.FirstName.</button></li>
+    }
+</ul>
+
+
+@code {
+
+
+
+     private static BackEndConnections services = new BackEndConnections();
+
+
+    [Inject]
+    private NavigationManager mymeneger { get; set; }
+
+    private IEnumerable<Account> ContactList = new List<Account>();
+
+    private  IEnumerable<Account> accounts = new List<Account>();
+    private  IEnumerable<Contact> contacts = new List<Contact>();
+    protected async override Task OnInitializedAsync()
+    {
+        accounts = await services._accountService.GetAllAsync();
+         contacts = await services._contactService.GetAllAsync();
+        ContactList = from account in accounts
+                        where contacts.Any(x=>x.InContactId==account.AccountId&&
+                        x.OwnerAccountId==Guid.Parse(id))
+                      select account;
+
+    }
+    [Parameter]
+    public string id { get; set; }
+
+
+    private async Task MyContacts(Account takenaccount)
+    {
+        Contact contact = contacts.First(x => x.InContactId == takenaccount.AccountId &&
+            x.OwnerAccountId == Guid.Parse(id));
+        await services._contactService.DeleteAsync(contact.ContactId);
+        await services._unitOfWork.SaveChangesAsync();
+        mymeneger.NavigateTo($"MainPage/{id}");
+    }
+}

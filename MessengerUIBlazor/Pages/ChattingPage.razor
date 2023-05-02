@@ -1,0 +1,70 @@
+﻿@page "/ChattingPage/{senderid}/{recieverid}"
+@using Domein.Entities;
+@using MessengerUIBlazor.Data;
+@using Services;
+
+<PageTitle>ChattingPage</PageTitle>
+<h3>@Contact.FirstName</h3>
+<div class="messages">
+    @foreach (var message in messages)
+    {
+        <div class="message">
+            <span class="sender">@message.MessageText</span>
+        </div>
+    }
+</div>
+<form class="message-form" onsubmit="@SendMessage">
+    <input type="text" @bind-value="@NewMessage" />
+    <button type="submit">Send</button>
+</form>
+
+@code {
+    public Account Contact = new Account();
+
+    private string NewMessage;
+
+    private async Task SendMessage()
+    {
+        var message = new Message
+            {
+                SenderAccountId = Guid.Parse(senderid),
+                RecieverAccountId = Guid.Parse(recieverid),
+                SentTime = DateTime.Now,
+                MessageText= NewMessage
+            };
+        await services._messageService.AddAsync(message);
+       await services._unitOfWork.SaveChangesAsync();
+        NewMessage = string.Empty;
+    }
+    IEnumerable<Message> messages = new List<Message>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var ServiceMessages = await services._messageService.GetAllAsync();
+
+        messages = from message in ServiceMessages
+                                  where (message.SenderAccountId.ToString() == senderid
+                                  && message.RecieverAccountId.ToString() == recieverid) ||
+                                  (message.SenderAccountId.ToString() ==recieverid
+                                  && message.RecieverAccountId.ToString() == senderid)
+                                  select message;
+    }
+    protected override async Task OnParametersSetAsync()
+    {
+        var accounts = await services._accountService.GetAllAsync();
+        Contact = accounts.First(x => x.AccountId.ToString() == recieverid);
+    }
+    private static BackEndConnections services = new BackEndConnections();
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+
+    [Parameter]
+    public string senderid { get; set; } 
+    
+    [Parameter]
+    public string recieverid { get; set; } 
+
+
+}

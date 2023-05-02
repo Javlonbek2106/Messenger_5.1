@@ -1,0 +1,76 @@
+﻿@page "/AddContact/{id}"
+@using Domein.Entities;
+@using MessengerUIBlazor.Data;
+@using Domein.Exceptions;
+
+<h1>Add Contact</h1>
+
+
+<div class="form-group">
+    <label for="phoneNumber">Phone Number:</label>
+    <input class="form-control" type="text" id="phoneNumber" @bind-value="phoneNumber" />
+</div>
+    <div class="form-group">
+    <label for="name">Name:</label>
+    <input class="form-control" type="text" id="name" @bind-value="name" />
+</div>
+<button class="btn btn-primary" @onclick="()=>AddContact(phoneNumber, id)">Add to Contacts</button>
+
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+
+@code {
+    private static BackEndConnections services = new BackEndConnections();
+
+
+    [Inject]
+    private NavigationManager mymeneger { get; set;  }
+
+    [Parameter]
+    public string id { get; set;  }
+    private string phoneNumber;
+    private string name;
+    private string errorMessage;
+
+    private async Task AddContact(string phoneNumber, string id)
+    {
+        try
+        {
+            var accounts = await services._accountService.GetAllAsync();
+            var account = accounts.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
+
+            if (account is null)
+            {
+                await services._accountService.AddAsync(new Account() { FirstName = name, PhoneNumber = phoneNumber });
+                await services._unitOfWork.SaveChangesAsync();
+                accounts = await services._accountService.GetAllAsync();
+                account = accounts.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
+            }
+
+            var contacts = await services._contactService.GetAllAsync();
+
+            if (contacts.Any(x => x.OwnerAccountId == Guid.Parse(id) && x.InContactId == account.AccountId))
+                throw new AlreadHasInContactsException();
+            await services._contactService.AddAsync(new Contact()
+            {
+                OwnerAccountId = Guid.Parse(id),
+                InContactId = account.AccountId
+            });
+            await services._unitOfWork.SaveChangesAsync();
+
+         mymeneger.NavigateTo($"/MainPage/{id}", true);
+        }
+        catch (AlreadHasInContactsException ex)
+        {
+            errorMessage = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "An error occurred while adding the contact.";
+        }
+    }
+    
+}

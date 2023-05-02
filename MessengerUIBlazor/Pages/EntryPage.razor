@@ -1,0 +1,72 @@
+﻿@using Domein.Entities;
+@using MessengerUIBlazor.Data;
+@page "/"
+@layout RegistrationLayout
+<h1 >Registration</h1>
+<div class=" justify-content-center" >
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" class="form-control" id="phoneNumber" @bind="@PhoneNumber" />
+</div>
+<button class="btn btn-primary" @onclick="Next">Next</button>
+
+@if (IsNewUser)
+{
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" @bind="@Name" />
+    </div>
+<button class="btn btn-primary" @onclick="RegisterUser">Register</button>
+}
+
+@code {
+    BackEndConnections services = new BackEndConnections();
+
+
+    private string PhoneNumber;
+    private string Name;
+    public static IEnumerable<Account> accounts = new List<Account>();
+    public static IEnumerable<BunchOfAccount> BunchAccounts = new List<BunchOfAccount>();
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        BunchAccounts = await services._bunchOfAccountService.GetAllAsync();
+        accounts = await services._accountService.GetAllAsync();
+        if(BunchAccounts.Any())
+        {
+            string ip = File.ReadAllText(BackEndConnections.CurrentAccountIdPath);
+            NavigationManager.NavigateTo($"/MainPage/{ip}");
+        }
+    }
+    bool IsNewUser = false;
+    private async Task Next()
+    {
+        var Founded = accounts.FirstOrDefault(x=>x.PhoneNumber==PhoneNumber);
+        if(Founded is  null)
+        {
+            IsNewUser = true;
+        }
+        else
+        {
+            NavigationManager.NavigateTo($"/MainPage/{Founded.AccountId.ToString()}");
+            await services._bunchOfAccountService.AddAsync(new BunchOfAccount() { InnerAccountId = Founded.AccountId });
+            await services._unitOfWork.SaveChangesAsync();
+            await File.WriteAllTextAsync(BackEndConnections.CurrentAccountIdPath, Founded.AccountId.ToString());
+        }
+    }
+
+
+    private async Task RegisterUser()
+    {
+        await services._accountService.AddAsync(new Account() { FirstName = Name, PhoneNumber = PhoneNumber });
+        await services._unitOfWork.SaveChangesAsync();
+        Account account = (await services._accountService.GetAllAsync()).First(x => x.PhoneNumber == PhoneNumber);
+        NavigationManager.NavigateTo($"/ChattingPage/{account.AccountId.ToString()}");
+             await services._bunchOfAccountService.AddAsync(new BunchOfAccount() { InnerAccountId = account.AccountId });
+            await File.WriteAllTextAsync(BackEndConnections.CurrentAccountIdPath, account.AccountId.ToString());
+        await services._unitOfWork.SaveChangesAsync();
+    }
+
+}

@@ -1,0 +1,85 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MessengerUIBlazor
+build_property.RootNamespace = MessengerUIBlazor
+build_property.ProjectDir = C:\Users\user\Desktop\Messenger_5.0\MessengerUIBlazor\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\user\Desktop\Messenger_5.0\MessengerUIBlazor
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/AddAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkQWNjb3VudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/AddConrtact.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkQ29ucnRhY3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/ChangeAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhbmdlQWNjb3VudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/ChattingPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhdHRpbmdQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/EntryPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cnlQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/MainPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpblBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/RemoveAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVtb3ZlQWNjb3VudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/RemoveContact.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVtb3ZlQ29udGFjdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ogmszxszrj
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-n6etzwvha5
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Shared/RegistrationLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlZ2lzdHJhdGlvbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-vg21yzo9tq
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Desktop/Messenger_5.0/MessengerUIBlazor/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

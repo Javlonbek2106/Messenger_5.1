@@ -1,0 +1,78 @@
+﻿@page "/AddAccount"
+@using Domein.Entities;
+@using Domein.Exceptions;
+@using MessengerUIBlazor.Data;
+@layout MainLayout
+
+
+<h3>Add Account</h3>
+
+<div class="form-group">
+    <label for="phoneNumber">Phone Number:</label>
+    <input class="form-control" type="text" id="phoneNumber" @bind-value="phoneNumber" />
+</div>
+<div class="form-group">
+    <label for="name">Name:</label>
+    <input class="form-control" type="text" id="name" @bind-value="name" />
+</div>
+<button class="btn btn-primary" @onclick="AddAccountt">Add to Accounts</button>
+
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+
+@code {
+
+    private string phoneNumber;
+    private string name;
+    private string errorMessage;
+
+
+    private static BackEndConnections services = new BackEndConnections();
+    
+
+    [Inject]
+    private NavigationManager mymeneger { get; set; }
+
+
+    private async Task AddAccountt()
+    {
+
+        try
+        {
+            var accounts = await services._accountService.GetAllAsync();
+            var account = accounts.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
+
+            if (account is null)
+            {
+                await services._accountService.AddAsync(new Account() { FirstName = name, PhoneNumber = phoneNumber });
+                await services._unitOfWork.SaveChangesAsync();
+                accounts = await services._accountService.GetAllAsync();
+                account = accounts.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
+            }
+            var MyAccounts = await services._bunchOfAccountService.GetAllAsync();
+
+            if (MyAccounts.Any(x => x.InnerAccountId == account.AccountId))
+                throw new AlreadyInAccountsException();
+            await services._bunchOfAccountService.AddAsync(new BunchOfAccount()
+                {
+                    InnerAccountId = account.AccountId
+                });
+            await services._unitOfWork.SaveChangesAsync();
+
+            mymeneger.NavigateTo($"/MainPage/{account.AccountId.ToString()}", true);
+            await File.WriteAllTextAsync(BackEndConnections.CurrentAccountIdPath, account.AccountId.ToString());
+
+        }
+        catch (AlreadyInAccountsException ex)
+        {
+            errorMessage = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "An error occurred while adding the contact.";
+        }
+    }
+}

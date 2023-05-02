@@ -1,0 +1,121 @@
+﻿@page "/MainPage/{id}"
+@using Domein.Entities;
+@using MessengerUIBlazor.Data;
+@using Services;
+
+
+<PageTitle>MainPage</PageTitle>
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="" style="align-content">Settings</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+<div class="nav-item px-3"> 
+            <NavLink class="nav-link" @onclick="() => NavigateToAddContact(id)">
+                <span class="oi oi-plus" aria-hidden="true"></span> add contact
+            </NavLink>
+</div>
+<div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="NavigateToAddAccount">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Add Account
+            </NavLink>
+            </div>
+            <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="NavigateToChangeAccount">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Change Account
+            </NavLink>
+            </div>
+            <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="NavigateToRemoveAccount">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Remove Account
+            </NavLink>
+            </div>
+            <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="NavigateToRemoveContact">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Remove Contact
+            </NavLink>
+            </div>
+    </nav>
+</div>
+
+@if(ContactList.Count()==0)
+{
+    <h4>You have no contacts yet</h4>
+}
+else{ <h3>Contacts</h3>}
+    <ul>
+        @foreach (var contact in ContactList)
+        {
+        <li><button @onclick="() => DisplayChattingPage(contact)">@contact.FirstName</button></li>
+        }
+    </ul>
+
+
+
+@code {
+
+    private void NavigateToAddContact(string id)
+    {
+        NavigationManager.NavigateTo($"/AddContact/{id}");
+    }
+    private void NavigateToRemoveContact()
+    {
+        NavigationManager.NavigateTo($"/RemoveContact/{id}");
+    }
+    private void NavigateToRemoveAccount()
+    {
+        NavigationManager.NavigateTo($"/RemoveAccount");
+    }
+    private void NavigateToAddAccount()
+    {
+        NavigationManager.NavigateTo($"/AddAccount");
+    }
+    private void NavigateToChangeAccount()
+    {
+        NavigationManager.NavigateTo($"/ChangeAccount");
+    }
+
+     private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+    private IEnumerable<Account> ContactList = new List<Account>();
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+     
+
+
+    private void DisplayChattingPage(Account contact)
+    {
+        NavigationManager.NavigateTo($"/ChattingPage/{id}/{contact.AccountId.ToString()}");
+    }
+
+    private static BackEndConnections services = new BackEndConnections();
+    private static BackEndConnections services2 = new BackEndConnections();
+
+    private static IEnumerable<Account> accounts = new List<Account>();
+    protected async override Task OnInitializedAsync()
+    {
+        accounts = await  services._accountService.GetAllAsync();
+        ContactList = from contact in  await services2._contactService.GetAllAsync()
+                        join inneraccount in accounts
+                        on contact.InContactId equals inneraccount.AccountId
+                        where contact.OwnerAccountId.ToString() == id
+                        select inneraccount;
+
+    }
+    [Parameter]
+    public string id { get; set; } 
+
+    private string? name { get; set; } 
+}

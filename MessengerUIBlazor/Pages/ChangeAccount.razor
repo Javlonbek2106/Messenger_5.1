@@ -1,0 +1,48 @@
+﻿@page "/ChangeAccount"
+@using Domein.Entities;
+@using Domein.Exceptions;
+@using MessengerUIBlazor.Data;
+
+
+<h3>Change Account</h3>
+
+<ul>
+@foreach (var account in MyAccounts)
+{
+    <li><button @onclick="() => ChangeMyAccountt(account)">@account.FirstName.</button></li>
+}
+</ul>
+
+
+
+@code {
+
+    private string phoneNumber;
+    private string name;
+    private string errorMessage;
+
+
+    private static BackEndConnections services = new BackEndConnections();
+
+
+    [Inject]
+    private NavigationManager mymeneger { get; set; }
+
+    private IEnumerable<BunchOfAccount> bunchOfAccounts = new List<BunchOfAccount>();
+    private IEnumerable<Account> accounts = new List<Account>();
+    private IEnumerable<Account> MyAccounts = new List<Account>();
+    protected async override Task OnInitializedAsync()
+    {
+        bunchOfAccounts = await services._bunchOfAccountService.GetAllAsync();
+        accounts = await services._accountService.GetAllAsync();
+        MyAccounts = from account in accounts
+                     where bunchOfAccounts.Any(x => x.InnerAccountId == account.AccountId)
+                     select account;
+    }
+
+    private async Task ChangeMyAccountt(Account takenaccount)
+    {
+        mymeneger.NavigateTo($"/MainPage/{takenaccount.AccountId.ToString()}");
+        await File.WriteAllTextAsync(BackEndConnections.CurrentAccountIdPath, takenaccount.AccountId.ToString());
+    }
+}

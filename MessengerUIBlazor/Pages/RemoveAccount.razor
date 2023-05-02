@@ -1,0 +1,59 @@
+﻿@page "/RemoveAccount"
+@using Domein.Entities;
+@using Domein.Exceptions;
+@using MessengerUIBlazor.Data;
+@layout MainLayout
+
+
+<h3>Choose account to Remove</h3>
+
+<ul>
+    @foreach (var account in MyAccounts)
+    {
+        <li><button @onclick="() => MyAccountt(account)">@account.FirstName.</button></li>
+    }
+</ul>
+
+
+@code {
+
+    private string phoneNumber;
+    private string name;
+    private string errorMessage;
+
+
+    private static BackEndConnections services = new BackEndConnections();
+
+
+    [Inject]
+    private NavigationManager mymeneger { get; set; }
+
+    private IEnumerable<BunchOfAccount> bunchOfAccounts = new List<BunchOfAccount>();
+    private IEnumerable<Account> accounts = new List<Account>();
+    private IEnumerable<Account> MyAccounts = new List<Account>();
+    protected async override Task OnInitializedAsync()
+    {
+        bunchOfAccounts = await services._bunchOfAccountService.GetAllAsync();
+        accounts = await services._accountService.GetAllAsync();
+        MyAccounts = from account in accounts
+                     where bunchOfAccounts.Any(x => x.InnerAccountId == account.AccountId)
+                     select account;
+    }
+
+    private async Task MyAccountt(Account takenaccount)
+    {
+            var bunchaccount = bunchOfAccounts.First(x => x.InnerAccountId == takenaccount.AccountId);
+            await services._bunchOfAccountService.DeleteAsync(bunchaccount.BunchOfAccountsId);
+            await services._unitOfWork.SaveChangesAsync();
+        if (bunchOfAccounts.Count()== 1)
+        {
+            await File.WriteAllTextAsync(BackEndConnections.CurrentAccountIdPath," ");
+            mymeneger.NavigateTo($"/");
+        }
+        else
+        {
+            mymeneger.NavigateTo($"/MainPage/{bunchOfAccounts.ToList()[0].InnerAccountId.ToString()}");
+            await File.WriteAllTextAsync(BackEndConnections.CurrentAccountIdPath, bunchOfAccounts.ToList()[0].InnerAccountId.ToString());
+        }
+    }
+}
